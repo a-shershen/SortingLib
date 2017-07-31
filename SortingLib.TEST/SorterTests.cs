@@ -17,5 +17,29 @@ namespace SortingLib.TEST
 
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void ShakerSortTest()
+        {
+            int[] unsorted = { 5, 3, 1, 4, 4, 2 };
+
+            int[] expected = { 1, 2, 3, 4, 4, 5 };
+
+            int[] actual = SortingLib.LIB.Sorter.ShakerSort(unsorted);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void CombSortTest()
+        {
+            int[] unsorted = { 5, 3, 1, 4, 4, 2 };
+
+            int[] expected = { 1, 2, 3, 4, 4, 5 };
+
+            int[] actual = SortingLib.LIB.Sorter.CombSort(unsorted);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }
