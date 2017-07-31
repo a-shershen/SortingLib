@@ -53,5 +53,76 @@ namespace SortingLib.LIB
 
             return array;
         }
+
+        /// <summary>
+        /// Realizes the shaker sort algorithm
+        /// </summary>
+        /// <param name="array">The array for sotring</param>
+        /// <returns>The sorted array</returns>
+        public static int[] ShakerSort(int[] array)
+        {
+            int left = 0;
+            int right = array.Length-1;
+
+            bool swapped = true;
+
+            while (swapped)
+            {
+                swapped = false;
+
+                for (int i = 0; i < right; i++)
+                {
+                    if (array[i] > array[i + 1])
+                    {
+                        swap(array, i, i + 1);
+                        swapped = true;
+                    }
+                }
+
+                left++;
+
+                for (int j = right; j > left; j--)
+                {
+                    if (array[j] < array[j - 1])
+                    {
+                        swap(array, j, j - 1);
+                        swapped = true;
+                    }
+                }
+
+                right--;
+            }
+
+            return array;
+        }
+
+        /// <summary>
+        /// Realizes the comb sort algorithm
+        /// </summary>
+        /// <param name="array">The array for sorting</param>
+        /// <returns>The sorted array</returns>
+        public static int[] CombSort(int[] array)
+        {
+            double f = 1.247;
+
+            int step = array.Length - 1;
+
+            while(step>1)
+            {
+                for (int i = 0; i + step < array.Length; i++)
+                {
+                    if (array[i] > array[i + step])
+                    {
+                        swap(array, i, i + step);
+                    }
+                }
+
+                step = (int)(step / f);
+            }
+
+            BubbleSort(array);
+
+            return array;
+        }
     }
 }
