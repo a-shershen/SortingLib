@@ -124,5 +124,113 @@ namespace SortingLib.LIB
 
             return array;
         }
+
+        public static int[] QuickSort(int[] array)
+        {
+            req(array, 0, array.Length);
+            return array;
+        }
+
+        private static void req(int[] array, int start, int end)
+        {
+            if(start<end)
+            {
+                int p = partition(array, start, end);
+                req(array, start, p - 1);
+                req(array, p, end);
+            }
+        }
+
+        private static int partition(int[] array, int start, int end)
+        {
+            int pivot = array[end - 1];
+
+            int left = start;
+
+            int right = end;
+
+            while(left<right)
+            {
+                while(array[left]<pivot)
+                {
+                    left++;
+                }
+
+                while(array[right]>pivot)
+                {
+                    right--;
+                }
+
+                if(left<=right)
+                {
+                    swap(array, left, right);
+                }
+            }
+
+            return ++left;
+        }
+
+        /// <summary>
+        /// Realizes the selection sort algorithm 
+        /// </summary>
+        /// <param name="array">The unsorted array</param>
+        /// <returns>The sorted array</returns>
+        public static int[] SelectionSort(int[] array)
+        {
+            int minIndex;
+
+            for(int i=0;i<array.Length;i++)
+            {
+                minIndex = i;
+
+                for(int j=i;j<array.Length;j++)
+                {
+                    if(array[j]<array[minIndex])
+                    {
+                        minIndex = j;
+                    }
+                }
+
+                swap(array, i, minIndex);
+            }
+
+            return array;
+        }
+
+        /// <summary>
+        /// Realizes the heapsort (pyramid) sort algorithm
+        /// </summary>
+        /// <param name="array">The unsorted array</param>
+        /// <returns>The sorted array</returns>
+        public static int[] HeapSort(int[] array)
+        {
+            return array;
+        }
+
+        /// <summary>
+        /// Realizes the insertion sort algorithm
+        /// </summary>
+        /// <param name="array">The unsorted array</param>
+        /// <returns>The sorted array</returns>
+        public static int[] InsertionSort(int[] array)
+        {
+            for (int i = 1; i < array.Length; i++)
+            {
+                for (int j = i; j > 0; j--)
+                {
+                    if (array[j - 1] > array[j])
+                    {
+                        swap(array, j-1, j);
+                    }
+
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return array;
+        }
     }
 }
