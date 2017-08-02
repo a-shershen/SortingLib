@@ -6,5 +6,6 @@ Contains realizations of sorting algorithms:
 - comb sort;
 
 - insertion sort;
+- Shell sort;
 
 - selection sort;
