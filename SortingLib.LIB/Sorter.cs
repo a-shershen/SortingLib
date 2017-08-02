@@ -232,5 +232,43 @@ namespace SortingLib.LIB
 
             return array;
         }
+
+        /// <summary>
+        /// Realizes Shell sort algorithm
+        /// </summary>
+        /// <param name="array">The unsorted array</param>
+        /// <returns>The sorted array</returns>
+        public static int[] ShellSort(int[] array)
+        {
+            int d = array.Length;
+
+            while (d > 0)
+            {
+                d /= 2;
+
+                for (int i = 0; i < array.Length - d; i++)
+                {
+                    for (int j = i + d; j > 0; j -= d)
+                    {
+                        if (array[j - 1] > array[j])
+                        {
+                            swap(array, j - 1, j);
+                        }
+
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                if(d==1)
+                {
+                    break;
+                }
+            }
+
+            return array;
+        }
     }
 }

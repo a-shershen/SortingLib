@@ -104,5 +104,17 @@ namespace SortingLib.TEST
 
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void ShellSortTest()
+        {
+            int[] unsorted = { 5, 3, 1, 4, 4, 2};
+
+            int[] expected = { 1, 2, 3, 4, 4, 5};
+
+            int[] actual = SortingLib.LIB.Sorter.ShellSort(unsorted);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }
