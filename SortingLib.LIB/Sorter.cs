@@ -125,50 +125,58 @@ namespace SortingLib.LIB
             return array;
         }
 
+        /// <summary>
+        /// Realizes the quick sort algorithm
+        /// </summary>
+        /// <param name="array">The array for sorting</param>
+        /// <returns>The sorted array</returns>
         public static int[] QuickSort(int[] array)
         {
-            req(array, 0, array.Length);
+            quick(array, 0, array.Length - 1);
+
             return array;
         }
 
-        private static void req(int[] array, int start, int end)
+        private static void quick(int[] array, int start, int end)
         {
-            if(start<end)
+            int i = start;
+
+            int j = end;
+
+            int pivot = array[(start + end) / 2];
+
+            while(i<j)
             {
-                int p = partition(array, start, end);
-                req(array, start, p - 1);
-                req(array, p, end);
-            }
-        }
-
-        private static int partition(int[] array, int start, int end)
-        {
-            int pivot = array[end - 1];
-
-            int left = start;
-
-            int right = end;
-
-            while(left<right)
-            {
-                while(array[left]<pivot)
+                while(array[i]<pivot)
                 {
-                    left++;
+                    i++;
                 }
 
-                while(array[right]>pivot)
+                while(array[j]>pivot)
                 {
-                    right--;
+                    j--;
                 }
 
-                if(left<=right)
+                if(i<=j)
                 {
-                    swap(array, left, right);
+                    swap(array, i, j);
+                    i++;
+                    j--;
                 }
             }
 
-            return ++left;
+            if(start<j)
+            {
+                quick(array, start, j);
+            }
+
+            if(i<end)
+            {
+                quick(array, i, end);
+            }
         }
+
+
 
         /// <summary>
         /// Realizes the selection sort algorithm 
