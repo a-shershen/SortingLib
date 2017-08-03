@@ -9,3 +9,5 @@ Contains realizations of sorting algorithms:
 - Shell sort;
 
 - selection sort;
+
+- merge sort;
