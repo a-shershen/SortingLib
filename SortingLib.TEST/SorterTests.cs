@@ -4,12 +4,21 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System.Linq;
 
+using sorterInt = SortingLib.LIB.Sorter<int>;
+
+
 namespace SortingLib.TEST
 {
     [TestClass]
     public class SorterTests
     {
-        private int[] generateArray(int size)
+        private int size = 10000;
+
+        private int[] unsorted;
+
+        private int[] expected;
+
+        private int[] GenerateArray(int size)
         {
             int[] array = new int[size];
 
@@ -24,111 +33,139 @@ namespace SortingLib.TEST
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void BubbleSortNullArrayTest()
+        {
+            sorterInt.BubbleSort(null);                        
+        }
+
+        [TestMethod]
         public void BubbleSortTest()
         {
-            int[] unsortedArray = { 5, 1, 3, 2, 4, 4 };
+            unsorted = GenerateArray(size);
 
-            int[] expected = { 1, 2, 3, 4, 4, 5 };
+            expected = unsorted.OrderBy(i => i).ToArray();
 
-            int[] actual = SortingLib.LIB.Sorter.BubbleSort(unsortedArray);
+            CollectionAssert.AreEqual(expected, sorterInt.BubbleSort(unsorted));
+        }
 
-            CollectionAssert.AreEqual(expected, actual);
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ShakerSortNullArrayTest()
+        {
+            sorterInt.ShakerSort(null);
         }
 
         [TestMethod]
         public void ShakerSortTest()
         {
-            int[] unsorted = { 5, 3, 1, 4, 4, 2 };
+            unsorted = GenerateArray(size);
 
-            int[] expected = { 1, 2, 3, 4, 4, 5 };
+            expected = unsorted.OrderBy(i => i).ToArray();
 
-            int[] actual = SortingLib.LIB.Sorter.ShakerSort(unsorted);
+            CollectionAssert.AreEqual(expected, sorterInt.ShakerSort(unsorted));
+        }
 
-            CollectionAssert.AreEqual(expected, actual);
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void CombSortNullArrayTest()
+        {
+            sorterInt.CombSort(null);
         }
 
         [TestMethod]
         public void CombSortTest()
         {
-            int[] unsorted = { 5, 3, 1, 4, 4, 2 };
+            unsorted = GenerateArray(size);
 
-            int[] expected = { 1, 2, 3, 4, 4, 5 };
+            expected = unsorted.OrderBy(i => i).ToArray();
 
-            int[] actual = SortingLib.LIB.Sorter.CombSort(unsorted);
+            CollectionAssert.AreEqual(expected, sorterInt.CombSort(unsorted));
+        }
 
-            CollectionAssert.AreEqual(expected, actual);
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void QuickSortNullArrayTest()
+        {
+            sorterInt.QuickSort(null);
         }
 
         [TestMethod]
         public void QuickSortTest()
         {
-            int[] unsorted = { 5, 3, 1, 4, 4, 2 };
+            unsorted = GenerateArray(size);
 
-            int[] expected = { 1, 2, 3, 4, 4, 5 };
+            expected = unsorted.OrderBy(i => i).ToArray();
 
-            int[] actual = SortingLib.LIB.Sorter.QuickSort(unsorted);
+            CollectionAssert.AreEqual(expected, sorterInt.QuickSort(unsorted));
+        }
 
-            CollectionAssert.AreEqual(expected, actual);
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void SelectionNullArrayTest()
+        {
+            sorterInt.SelectionSort(null);
         }
 
         [TestMethod]
         public void SelectedSortTest()
         {
-            int[] unsorted = { 5, 3, 1, 4, 4, 2 };
+            unsorted = GenerateArray(size);
 
-            int[] expected = { 1, 2, 3, 4, 4, 5 };
+            expected = unsorted.OrderBy(i => i).ToArray();
 
-            int[] actual = SortingLib.LIB.Sorter.SelectionSort(unsorted);
-
-            CollectionAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected, sorterInt.SelectionSort(unsorted));
         }
-        
+
         [TestMethod]
-        public void HeapSortTest()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void InsertionSortNullArrayTest()
         {
-            int[] unsorted = { 5, 3, 1, 4, 4, 2 };
-
-            int[] expected = { 1, 2, 3, 4, 4, 5 };
-
-            int[] actual = SortingLib.LIB.Sorter.HeapSort(unsorted);
-
-            CollectionAssert.AreEqual(expected, actual);
+            sorterInt.InsertionSort(null);
         }
 
         [TestMethod]
         public void InsertionSortTest()
         {
-            int[] unsorted = { 5, 3, 1, 4, 4, 2 };
+            unsorted = GenerateArray(size);
 
-            int[] expected = { 1, 2, 3, 4, 4, 5 };
+            expected = unsorted.OrderBy(i => i).ToArray();
 
-            int[] actual = SortingLib.LIB.Sorter.InsertionSort(unsorted);
+            CollectionAssert.AreEqual(expected, sorterInt.InsertionSort(unsorted));
+        }
 
-            CollectionAssert.AreEqual(expected, actual);
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ShellSortNullArrayTest()
+        {
+            sorterInt.ShellSort(null);
         }
 
         [TestMethod]
         public void ShellSortTest()
         {
-            int[] unsorted = { 5, 3, 1, 4, 4, 2};
+            unsorted = GenerateArray(size);
 
-            int[] expected = { 1, 2, 3, 4, 4, 5};
+            expected = unsorted.OrderBy(i => i).ToArray();
 
-            int[] actual = SortingLib.LIB.Sorter.ShellSort(unsorted);
+            CollectionAssert.AreEqual(expected, sorterInt.ShellSort(unsorted));
+        }
 
-            CollectionAssert.AreEqual(expected, actual);
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void MergeSortNullArrayTest()
+        {
+            sorterInt.MergeSort(null);
         }
 
         [TestMethod]
         public void MergeSortTest()
         {
-            int[] unsorted = { 5, 3, 1, 4, 4, 2 };
+            unsorted = GenerateArray(size);
 
-            int[] expected = { 1, 2, 3, 4, 4, 5 };
+            expected = unsorted.OrderBy(i => i).ToArray();
 
-            int[] actual = SortingLib.LIB.Sorter.MergeSort(unsorted);
-
-            CollectionAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected, sorterInt.MergeSort(unsorted));
         }
     }
 }

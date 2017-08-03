@@ -9,7 +9,7 @@ namespace SortingLib.LIB
     /// <summary>
     /// Contains different sorting algorithm methods
     /// </summary>
-    public static class Sorter
+    public static class Sorter<T> where T:IComparable
     {
         /// <summary>
         /// Swap elements
@@ -17,11 +17,12 @@ namespace SortingLib.LIB
         /// <param name="array">The array which elements will be swapped</param>
         /// <param name="leftIndex">Left index</param>
         /// <param name="rightIndex">Right index</param>
-        private static void swap(int[] array, int leftIndex, int rightIndex)
+        private static void Swap(T[] array, int leftIndex, int rightIndex)
         {
-            int temp = array[leftIndex];
+            T temp = array[leftIndex];
 
             array[leftIndex] = array[rightIndex];
+
             array[rightIndex] = temp;
         }
 
@@ -30,17 +31,23 @@ namespace SortingLib.LIB
         /// </summary>
         /// <param name="array">The array for sotring</param>
         /// <returns>The sorted array</returns>
-        public static int[] BubbleSort(int[] array)
-        {                      
+        /// <exception cref="ArgumentNullException">Throws when the array is null</exception>
+        public static T[] BubbleSort(T[] array)
+        {   
+            if(array == null)
+            {
+                throw new ArgumentNullException();
+            }            
+
             bool wasSwapped = false;
 
             for(int i=0;i<array.Length-1;i++)
             {
                 for(int j=0;j< array.Length-i-1; j++)
                 {
-                    if(array[j]>array[j+1])
+                    if (array[j].CompareTo(array[j + 1]) > 0)
                     {
-                        swap(array, j, j+1);
+                        Swap(array, j, j + 1);
                         wasSwapped = true;
                     }
                 }
@@ -59,8 +66,14 @@ namespace SortingLib.LIB
         /// </summary>
         /// <param name="array">The array for sotring</param>
         /// <returns>The sorted array</returns>
-        public static int[] ShakerSort(int[] array)
+        /// <exception cref="ArgumentNullException">Throws when the array is null</exception>
+        public static T[] ShakerSort(T[] array)
         {
+            if(array==null)
+            {
+                throw new ArgumentNullException();
+            }
+
             int left = 0;
             int right = array.Length-1;
 
@@ -72,9 +85,9 @@ namespace SortingLib.LIB
 
                 for (int i = 0; i < right; i++)
                 {
-                    if (array[i] > array[i + 1])
+                    if (array[i].CompareTo(array[i + 1]) > 0)
                     {
-                        swap(array, i, i + 1);
+                        Swap(array, i, i + 1);
                         swapped = true;
                     }
                 }
@@ -83,9 +96,9 @@ namespace SortingLib.LIB
 
                 for (int j = right; j > left; j--)
                 {
-                    if (array[j] < array[j - 1])
+                    if (array[j].CompareTo(array[j - 1]) < 0)
                     {
-                        swap(array, j, j - 1);
+                        Swap(array, j, j - 1);
                         swapped = true;
                     }
                 }
@@ -101,8 +114,14 @@ namespace SortingLib.LIB
         /// </summary>
         /// <param name="array">The array for sorting</param>
         /// <returns>The sorted array</returns>
-        public static int[] CombSort(int[] array)
+        /// <exception cref="ArgumentNullException">Throws when the array is null</exception>
+        public static T[] CombSort(T[] array)
         {
+            if(array==null)
+            {
+                throw new ArgumentNullException();
+            }
+
             double f = 1.247;
 
             int step = array.Length - 1;
@@ -111,9 +130,9 @@ namespace SortingLib.LIB
             {
                 for (int i = 0; i + step < array.Length; i++)
                 {
-                    if (array[i] > array[i + step])
+                    if (array[i].CompareTo(array[i + step]) > 0)
                     {
-                        swap(array, i, i + step);
+                        Swap(array, i, i + step);
                     }
                 }
 
@@ -130,49 +149,52 @@ namespace SortingLib.LIB
         /// </summary>
         /// <param name="array">The array for sorting</param>
         /// <returns>The sorted array</returns>
-        public static int[] QuickSort(int[] array)
+        /// <exception cref="ArgumentNullException">Throws when the array is null</exception>
+        public static T[] QuickSort(T[] array)
         {
-            quick(array, 0, array.Length - 1);
+            if(array==null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            Quick(array, 0, array.Length - 1);
 
             return array;
         }
 
-        private static void quick(int[] array, int start, int end)
+        private static void Quick(T[] array, int left, int right)
         {
-            int i = start;
+            int i = left;
 
-            int j = end;
+            int j = right;
 
-            int pivot = array[(start + end) / 2];
+            T pivot = array[(left + right) / 2];
 
             while(i<j)
             {
-                while(array[i]<pivot)
+                while(array[i].CompareTo(pivot)<0)
                 {
                     i++;
                 }
 
-                while(array[j]>pivot)
+                while(array[j].CompareTo(pivot)>0)
                 {
                     j--;
                 }
 
                 if(i<=j)
                 {
-                    swap(array, i, j);
+                    Swap(array, i, j);
                     i++;
                     j--;
                 }
             }
 
-            if(start<j)
+            if(left<right)
             {
-                quick(array, start, j);
-            }
+                Quick(array, left, j);   
 
-            if(i<end)
-            {
-                quick(array, i, end);
+                Quick(array, i, right);
             }
         }
 
@@ -183,8 +205,14 @@ namespace SortingLib.LIB
         /// </summary>
         /// <param name="array">The unsorted array</param>
         /// <returns>The sorted array</returns>
-        public static int[] SelectionSort(int[] array)
+        /// <exception cref="ArgumentNullException">Throws when the array is null</exception>
+        public static T[] SelectionSort(T[] array)
         {
+            if(array==null)
+            {
+                throw new ArgumentNullException();
+            }
+
             int minIndex;
 
             for(int i=0;i<array.Length;i++)
@@ -193,25 +221,15 @@ namespace SortingLib.LIB
 
                 for(int j=i;j<array.Length;j++)
                 {
-                    if(array[j]<array[minIndex])
+                    if(array[j].CompareTo(array[minIndex])<0)
                     {
                         minIndex = j;
                     }
                 }
 
-                swap(array, i, minIndex);
+                Swap(array, i, minIndex);
             }
 
-            return array;
-        }
-
-        /// <summary>
-        /// Realizes the heapsort (pyramid) sort algorithm
-        /// </summary>
-        /// <param name="array">The unsorted array</param>
-        /// <returns>The sorted array</returns>
-        public static int[] HeapSort(int[] array)
-        {
             return array;
         }
 
@@ -220,15 +238,21 @@ namespace SortingLib.LIB
         /// </summary>
         /// <param name="array">The unsorted array</param>
         /// <returns>The sorted array</returns>
-        public static int[] InsertionSort(int[] array)
+        /// <exception cref="ArgumentNullException">Throws when the array is null</exception>
+        public static T[] InsertionSort(T[] array)
         {
+            if(array==null)
+            {
+                throw new ArgumentNullException();
+            }
+
             for (int i = 1; i < array.Length; i++)
             {
                 for (int j = i; j > 0; j--)
                 {
-                    if (array[j - 1] > array[j])
+                    if (array[j - 1] .CompareTo( array[j])>0)
                     {
-                        swap(array, j-1, j);
+                        Swap(array, j-1, j);
                     }
 
                     else
@@ -246,8 +270,14 @@ namespace SortingLib.LIB
         /// </summary>
         /// <param name="array">The unsorted array</param>
         /// <returns>The sorted array</returns>
-        public static int[] ShellSort(int[] array)
+        /// <exception cref="ArgumentNullException">Throws when the array is null</exception>
+        public static T[] ShellSort(T[] array)
         {
+            if(array ==null)
+            {
+                throw new ArgumentNullException();
+            }
+
             int d = array.Length;
 
             while (d > 0)
@@ -258,9 +288,9 @@ namespace SortingLib.LIB
                 {
                     for (int j = i + d; j > 0; j -= d)
                     {
-                        if (array[j - 1] > array[j])
+                        if (array[j - 1] .CompareTo( array[j])>0)
                         {
-                            swap(array, j - 1, j);
+                            Swap(array, j - 1, j);
                         }
 
                         else
@@ -285,14 +315,20 @@ namespace SortingLib.LIB
         /// </summary>
         /// <param name="array">The unsorted array</param>
         /// <returns>The sorted array</returns>
-        public static int[] MergeSort(int[] array)
-        {            
-            divideAndMerge(array, 0, array.Length-1);
+        /// <exception cref="ArgumentNullException">Throws when the array is null</exception>
+        public static T[] MergeSort(T[] array)
+        {          
+            if(array==null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            DivideAndMerge(array, 0, array.Length-1);
 
             return array;
         }
 
-        private static void divideAndMerge(int[] array, int left, int right)
+        private static void DivideAndMerge(T[] array, int left, int right)
         {
             if(left>=right)
             {
@@ -301,19 +337,19 @@ namespace SortingLib.LIB
 
             int middle = (left + right + 1) / 2;
 
-            divideAndMerge(array, left, middle-1);
-            divideAndMerge(array, middle, right);
+            DivideAndMerge(array, left, middle-1);
+            DivideAndMerge(array, middle, right);
 
             int i = left;
             int j = middle;
 
-            int[] buffer = new int[right - left+1];
+            T[] buffer = new T[right - left+1];
             int c = 0;
             
 
             while (i<middle && j<=right)
             {
-                if(array[i]<array[j])
+                if(array[i].CompareTo(array[j])<0)
                 {
                     buffer[c] = array[i];
                     c++;
