@@ -278,5 +278,80 @@ namespace SortingLib.LIB
 
             return array;
         }
+
+
+        /// <summary>
+        /// Realizes merge sort algorithm
+        /// </summary>
+        /// <param name="array">The unsorted array</param>
+        /// <returns>The sorted array</returns>
+        public static int[] MergeSort(int[] array)
+        {            
+            divideAndMerge(array, 0, array.Length-1);
+
+            return array;
+        }
+
+        private static void divideAndMerge(int[] array, int left, int right)
+        {
+            if(left>=right)
+            {
+                return;
+            }
+
+            int middle = (left + right + 1) / 2;
+
+            divideAndMerge(array, left, middle-1);
+            divideAndMerge(array, middle, right);
+
+            int i = left;
+            int j = middle;
+
+            int[] buffer = new int[right - left+1];
+            int c = 0;
+            
+
+            while (i<middle && j<=right)
+            {
+                if(array[i]<array[j])
+                {
+                    buffer[c] = array[i];
+                    c++;
+                    i++;
+                }
+                else
+                {
+                    buffer[c] = array[j];
+                    c++;
+                    j++;
+                }
+            }
+
+            if (i < middle)
+            {
+                while(i<middle)
+                {
+                    buffer[c] = array[i];
+                    c++;
+                    i++;
+                }
+            }
+
+            if (j <= right)
+            {
+                while(j<=right)
+                {
+                    buffer[c] = array[j];
+                    c++;
+                    j++;
+                }
+            }           
+            
+
+            for(i=0;i<buffer.Length;i++)
+            {
+                array[left + i] = buffer[i];
+            }
+        }        
     }
 }

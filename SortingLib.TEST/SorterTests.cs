@@ -2,24 +2,26 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using System.Linq;
+
 namespace SortingLib.TEST
 {
     [TestClass]
     public class SorterTests
     {
-        //private int[] generateArray(int size)
-        //{
-        //    int[] array = new int[size];
+        private int[] generateArray(int size)
+        {
+            int[] array = new int[size];
 
-        //    Random random = new Random();
+            Random random = new Random();
 
-        //    for(int i=0;i<size;i++)
-        //    {
-        //        array[i] = random.Next(int.MaxValue - 1);
-        //    }
+            for (int i = 0; i < size; i++)
+            {
+                array[i] = random.Next(int.MaxValue - 1);
+            }
 
-        //    return array;
-        //}
+            return array;
+        }
 
         [TestMethod]
         public void BubbleSortTest()
@@ -113,6 +115,18 @@ namespace SortingLib.TEST
             int[] expected = { 1, 2, 3, 4, 4, 5};
 
             int[] actual = SortingLib.LIB.Sorter.ShellSort(unsorted);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void MergeSortTest()
+        {
+            int[] unsorted = { 5, 3, 1, 4, 4, 2 };
+
+            int[] expected = { 1, 2, 3, 4, 4, 5 };
+
+            int[] actual = SortingLib.LIB.Sorter.MergeSort(unsorted);
 
             CollectionAssert.AreEqual(expected, actual);
         }
