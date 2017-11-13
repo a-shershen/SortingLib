@@ -1,8 +1,8 @@
 # SortingLib
 Contains realizations of sorting algorithms:
 
-- bubble sort
-- shaker sort
+- bubble sort;
+- shaker sort;
 - comb sort;
 
 - insertion sort;
